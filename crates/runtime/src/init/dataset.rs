@@ -277,7 +277,7 @@ impl Runtime {
                     FederatedTable::new_deferred(Arc::clone(&ds), Arc::clone(&connector)).await
                 {
                     tracing::warn!(
-                        "Connection to source failed for {}. Data from acceleration is available.\n\n{err}",
+                        "Connection to source of data failed for {}. Data from acceleration is available.\n\n{err}",
                         ds.name
                     );
                     federated_table
