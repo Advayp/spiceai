@@ -315,60 +315,11 @@ pub struct ParameterSpec {
     pub description: &'static str,
     pub help_link: &'static str,
     pub examples: &'static [&'static str],
-    pub r#type: ParameterType,
     pub deprecation_message: Option<&'static str>,
     pub is_prefixed: bool,
 }
 
 impl ParameterSpec {
-    #[must_use]
-    pub const fn connector(name: &'static str) -> Self {
-        Self {
-            name,
-            required: false,
-            default: None,
-            secret: false,
-            description: "",
-            help_link: "",
-            examples: &[],
-            r#type: ParameterType::Connector,
-            deprecation_message: None,
-            is_prefixed: true,
-        }
-    }
-
-    #[must_use]
-    pub const fn runtime(name: &'static str) -> Self {
-        Self {
-            name,
-            required: false,
-            default: None,
-            secret: false,
-            description: "",
-            help_link: "",
-            examples: &[],
-            r#type: ParameterType::Runtime,
-            deprecation_message: None,
-            is_prefixed: false,
-        }
-    }
-
-    #[must_use]
-    pub const fn accelerator(name: &'static str) -> Self {
-        Self {
-            name,
-            required: false,
-            default: None,
-            secret: false,
-            description: "",
-            help_link: "",
-            examples: &[],
-            r#type: ParameterType::Accelerator,
-            deprecation_message: None,
-            is_prefixed: true,
-        }
-    }
-
     #[must_use]
     pub const fn new(name: &'static str) -> Self {
         Self {
@@ -380,7 +331,6 @@ impl ParameterSpec {
             help_link: "",
             examples: &[],
             deprecation_message: None,
-            r#type: ParameterType::Connector,
             is_prefixed: true,
         }
     }
@@ -427,62 +377,10 @@ impl ParameterSpec {
         self
     }
 
+    #[must_use]
     pub const fn unset_prefix(mut self) -> Self {
         self.is_prefixed = false;
         self
-    }
-}
-
-#[derive(Default, Debug, Clone, Copy, PartialEq)]
-pub enum ParameterType {
-    /// A parameter which tells Spice how to connect to the underlying data source.
-    ///
-    /// These parameters are automatically prefixed with the data connector's prefix (from
-    /// [`crate::dataconnector::DataConnectorFactory::prefix`]).
-    ///
-    /// # Examples
-    ///
-    /// In Postgres, the `host` is a Connector parameter and would be auto-prefixed with `pg_`.
-    #[default]
-    Connector,
-
-    /// A parameter which tells Spice how to connect to the underlying data accelerator.
-    ///
-    /// These parameters are automatically prefixed with the data accelerator's prefix (from
-    /// [`crate::dataaccelerator::DataAccelerator::prefix`]).
-    ///
-    /// # Examples
-    ///
-    /// In Postgres, the `host` is an Accelerator parameter and would be auto-prefixed with `pg_`.
-    Accelerator,
-
-    /// Other parameters which control how the runtime interacts with the data source, but does
-    /// not affect the actual connection.
-    ///
-    /// These parameters are not prefixed with the data connector's prefix.
-    ///
-    /// # Examples
-    ///
-    /// In Databricks, the `mode` parameter is used to select which connection to use, and thus is
-    /// not a Connector parameter.
-    Runtime,
-}
-
-// Display implementation for ParameterType
-impl Display for ParameterType {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ParameterType::Connector => write!(f, "Connector"),
-            ParameterType::Accelerator => write!(f, "Accelerator"),
-            ParameterType::Runtime => write!(f, "Runtime"),
-        }
-    }
-}
-
-impl ParameterType {
-    #[must_use]
-    pub const fn is_prefixed(self) -> bool {
-        matches!(self, Self::Connector | Self::Accelerator)
     }
 }
 
