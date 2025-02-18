@@ -297,24 +297,24 @@ impl GithubFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::connector("token")
+    ParameterSpec::new("token")
         .description("A Github token.")
         .secret(),
-    ParameterSpec::connector("client_id")
+    ParameterSpec::new("client_id")
         .description("The Github App Client ID.")
         .secret(),
-    ParameterSpec::connector("private_key")
+    ParameterSpec::new("private_key")
         .description("The Github App private key.")
         .secret(),
-    ParameterSpec::connector("installation_id")
+    ParameterSpec::new("installation_id")
         .description("The Github App installation ID.")
         .secret(),
-    ParameterSpec::connector("query_mode")
+    ParameterSpec::new("query_mode")
         .description(
             "Specify what search mode (REST, GraphQL, Search API) to use when retrieving results.",
         )
         .default("auto"),
-    ParameterSpec::connector("endpoint")
+    ParameterSpec::new("endpoint")
         .description("The Github API endpoint.")
         .default("https://api.github.com"),
     ParameterSpec::runtime("include")

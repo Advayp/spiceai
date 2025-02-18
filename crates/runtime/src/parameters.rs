@@ -366,6 +366,21 @@ impl ParameterSpec {
     }
 
     #[must_use]
+    pub const fn new(name: &'static str) -> Self {
+        Self {
+            name,
+            required: false,
+            default: None,
+            secret: false,
+            description: "",
+            help_link: "",
+            examples: &[],
+            deprecation_message: None,
+            r#type: ParameterType::Connector,
+        }
+    }
+
+    #[must_use]
     pub const fn required(mut self) -> Self {
         self.required = true;
         self
@@ -470,7 +485,7 @@ mod test {
         // key with prefix, parameter expects prefix.
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::connector("endpoint")],
+                &[ParameterSpec::new("endpoint")],
                 "databricks",
                 "databricks_endpoint",
                 "connector databricks"
@@ -481,7 +496,7 @@ mod test {
         // key with wrong prefix, parameter expects prefix.
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::connector("endpoint")],
+                &[ParameterSpec::new("endpoint")],
                 "not_databricks",
                 "databricks_endpoint",
                 "connector databricks"
@@ -514,7 +529,7 @@ mod test {
         // key with prefix, parameter expects prefix. Prefix not stripped from key
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::connector("file_format")],
+                &[ParameterSpec::new("file_format")],
                 "file",
                 "file_format",
                 "connector file"
@@ -525,7 +540,7 @@ mod test {
         // key with prefix, parameter expects prefix. Prefix stripped from key
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::connector("format")],
+                &[ParameterSpec::new("format")],
                 "file",
                 "file_format",
                 "connector file"

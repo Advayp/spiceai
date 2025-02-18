@@ -63,14 +63,14 @@ impl PostgresFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::connector("connection_string").secret(),
-    ParameterSpec::connector("user").secret(),
-    ParameterSpec::connector("pass").secret(),
-    ParameterSpec::connector("host"),
-    ParameterSpec::connector("port"),
-    ParameterSpec::connector("db"),
-    ParameterSpec::connector("sslmode"),
-    ParameterSpec::connector("sslrootcert"),
+    ParameterSpec::new("connection_string").secret(),
+    ParameterSpec::new("user").secret(),
+    ParameterSpec::new("pass").secret(),
+    ParameterSpec::new("host"),
+    ParameterSpec::new("port"),
+    ParameterSpec::new("db"),
+    ParameterSpec::new("sslmode"),
+    ParameterSpec::new("sslrootcert"),
     ParameterSpec::runtime("connection_pool_size")
         .description("The maximum number of connections created in the connection pool")
         .default("10"),

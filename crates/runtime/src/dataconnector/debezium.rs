@@ -154,11 +154,11 @@ impl DebeziumFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::connector("transport")
+    ParameterSpec::new("transport")
         .required()
         .default("kafka")
         .description("The message broker transport to use. The default is kafka."),
-    ParameterSpec::connector("message_format")
+    ParameterSpec::new("message_format")
         .required()
         .default("json")
         .description("The message format to use. The default is json."),

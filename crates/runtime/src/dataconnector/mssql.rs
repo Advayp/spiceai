@@ -51,14 +51,14 @@ pub enum Error {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::connector("connection_string").secret(),
-    ParameterSpec::connector("username").secret(),
-    ParameterSpec::connector("password").secret(),
-    ParameterSpec::connector("host"),
-    ParameterSpec::connector("port"),
-    ParameterSpec::connector("database"),
-    ParameterSpec::connector("encrypt"),
-    ParameterSpec::connector("trust_server_certificate"),
+    ParameterSpec::new("connection_string").secret(),
+    ParameterSpec::new("username").secret(),
+    ParameterSpec::new("password").secret(),
+    ParameterSpec::new("host"),
+    ParameterSpec::new("port"),
+    ParameterSpec::new("database"),
+    ParameterSpec::new("encrypt"),
+    ParameterSpec::new("trust_server_certificate"),
 ];
 
 pub type Result<T, E = Error> = std::result::Result<T, E>;

@@ -65,14 +65,14 @@ impl MySQLFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::connector("connection_string").secret(),
-    ParameterSpec::connector("user").secret(),
-    ParameterSpec::connector("pass").secret(),
-    ParameterSpec::connector("host"),
-    ParameterSpec::connector("tcp_port"),
-    ParameterSpec::connector("db"),
-    ParameterSpec::connector("sslmode"),
-    ParameterSpec::connector("sslrootcert"),
+    ParameterSpec::new("connection_string").secret(),
+    ParameterSpec::new("user").secret(),
+    ParameterSpec::new("pass").secret(),
+    ParameterSpec::new("host"),
+    ParameterSpec::new("tcp_port"),
+    ParameterSpec::new("db"),
+    ParameterSpec::new("sslmode"),
+    ParameterSpec::new("sslrootcert"),
 ];
 
 impl DataConnectorFactory for MySQLFactory {

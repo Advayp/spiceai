@@ -67,9 +67,9 @@ impl SFTPFactory {
 static PARAMETERS: LazyLock<Vec<ParameterSpec>> = LazyLock::new(|| {
     let mut all_parameters = Vec::new();
     all_parameters.extend_from_slice(&[
-        ParameterSpec::connector("user").secret(),
-        ParameterSpec::connector("pass").secret(),
-        ParameterSpec::connector("port").description("The port to connect to."),
+        ParameterSpec::new("user").secret(),
+        ParameterSpec::new("pass").secret(),
+        ParameterSpec::new("port").description("The port to connect to."),
         ParameterSpec::runtime("client_timeout")
             .description("The timeout setting for SFTP client."),
     ]);

@@ -220,9 +220,9 @@ impl SpiceCloudPlatformCatalog {
 }
 
 pub(crate) const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::connector("api_key").secret(),
-    ParameterSpec::connector("flight_endpoint"),
-    ParameterSpec::connector("http_endpoint"),
+    ParameterSpec::new("api_key").secret(),
+    ParameterSpec::new("flight_endpoint"),
+    ParameterSpec::new("http_endpoint"),
 ];
 
 #[async_trait]

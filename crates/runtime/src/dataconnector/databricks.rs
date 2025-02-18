@@ -135,11 +135,11 @@ impl DatabricksFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::connector("endpoint")
+    ParameterSpec::new("endpoint")
         .required()
         .secret()
         .description("The endpoint of the Databricks instance."),
-    ParameterSpec::connector("token")
+    ParameterSpec::new("token")
         .required()
         .secret()
         .description("The personal access token used to authenticate against the DataBricks API."),
@@ -148,45 +148,45 @@ const PARAMETERS: &[ParameterSpec] = &[
         .default("spark_connect"),
     ParameterSpec::runtime("client_timeout")
         .description("The timeout setting for object store client."),
-    ParameterSpec::connector("cluster_id").description("The ID of the compute cluster in Databricks to use for the query. Only valid when mode is spark_connect."),
-    ParameterSpec::connector("use_ssl").description("Use a TLS connection to connect to the Databricks Spark Connect endpoint.").default("true"),
+    ParameterSpec::new("cluster_id").description("The ID of the compute cluster in Databricks to use for the query. Only valid when mode is spark_connect."),
+    ParameterSpec::new("use_ssl").description("Use a TLS connection to connect to the Databricks Spark Connect endpoint.").default("true"),
 
     // S3 storage options
-    ParameterSpec::connector("aws_region")
+    ParameterSpec::new("aws_region")
         .description("The AWS region to use for S3 storage.")
         .secret(),
-    ParameterSpec::connector("aws_access_key_id")
+    ParameterSpec::new("aws_access_key_id")
         .description("The AWS access key ID to use for S3 storage.")
         .secret(),
-    ParameterSpec::connector("aws_secret_access_key")
+    ParameterSpec::new("aws_secret_access_key")
         .description("The AWS secret access key to use for S3 storage.")
         .secret(),
-    ParameterSpec::connector("aws_endpoint")
+    ParameterSpec::new("aws_endpoint")
         .description("The AWS endpoint to use for S3 storage.")
         .secret(),
 
     // Azure storage options
-    ParameterSpec::connector("azure_storage_account_name")
+    ParameterSpec::new("azure_storage_account_name")
         .description("The storage account to use for Azure storage.")
         .secret(),
-    ParameterSpec::connector("azure_storage_account_key")
+    ParameterSpec::new("azure_storage_account_key")
         .description("The storage account key to use for Azure storage.")
         .secret(),
-    ParameterSpec::connector("azure_storage_client_id")
+    ParameterSpec::new("azure_storage_client_id")
         .description("The service principal client id for accessing the storage account.")
         .secret(),
-    ParameterSpec::connector("azure_storage_client_secret")
+    ParameterSpec::new("azure_storage_client_secret")
         .description("The service principal client secret for accessing the storage account.")
         .secret(),
-    ParameterSpec::connector("azure_storage_sas_key")
+    ParameterSpec::new("azure_storage_sas_key")
         .description("The shared access signature key for accessing the storage account.")
         .secret(),
-    ParameterSpec::connector("azure_storage_endpoint")
+    ParameterSpec::new("azure_storage_endpoint")
         .description("The endpoint for the Azure Blob storage account.")
         .secret(),
 
     // GCS storage options
-    ParameterSpec::connector("google_service_account")
+    ParameterSpec::new("google_service_account")
         .description("Filesystem path to the Google service account JSON key file.")
         .secret(),
 ];

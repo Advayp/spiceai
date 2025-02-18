@@ -77,72 +77,72 @@ impl AzureBlobFSFactory {
 static PARAMETERS: LazyLock<Vec<ParameterSpec>> = LazyLock::new(|| {
     let mut all_parameters = Vec::new();
     all_parameters.extend_from_slice(&[
-        ParameterSpec::connector("account")
+        ParameterSpec::new("account")
             .description("Azure Storage account name.")
             .secret(),
-        ParameterSpec::connector("container_name")
+        ParameterSpec::new("container_name")
             .description("Azure Storage container name.")
             .secret(),
-        ParameterSpec::connector("access_key")
+        ParameterSpec::new("access_key")
             .description("Azure Storage account access key.")
             .secret(),
-        ParameterSpec::connector("bearer_token")
+        ParameterSpec::new("bearer_token")
             .description("Bearer token to use in Azure requests.")
             .secret(),
-        ParameterSpec::connector("client_id")
+        ParameterSpec::new("client_id")
             .description("Azure client ID.")
             .secret(),
-        ParameterSpec::connector("client_secret")
+        ParameterSpec::new("client_secret")
             .description("Azure client secret.")
             .secret(),
-        ParameterSpec::connector("tenant_id")
+        ParameterSpec::new("tenant_id")
             .description("Azure tenant ID.")
             .secret(),
-        ParameterSpec::connector("sas_string")
+        ParameterSpec::new("sas_string")
             .description("Azure SAS string.")
             .secret(),
-        ParameterSpec::connector("endpoint")
+        ParameterSpec::new("endpoint")
             .description("Azure Storage endpoint.")
             .secret(),
-        ParameterSpec::connector("use_emulator")
+        ParameterSpec::new("use_emulator")
             .description("Use the Azure Storage emulator.")
             .default("false"),
-        ParameterSpec::connector("use_fabric_endpoint")
+        ParameterSpec::new("use_fabric_endpoint")
             .description("Use the Azure Storage fabric endpoint.")
             .default("false"),
         ParameterSpec::runtime("allow_http")
             .description("Allow insecure HTTP connections.")
             .default("false"),
-        ParameterSpec::connector("authority_host")
+        ParameterSpec::new("authority_host")
             .description("Sets an alternative authority host."),
-        ParameterSpec::connector("max_retries")
+        ParameterSpec::new("max_retries")
             .description("The maximum number of retries.")
             .default("3"),
-        ParameterSpec::connector("retry_timeout")
+        ParameterSpec::new("retry_timeout")
             .description("Retry timeout."),
-        ParameterSpec::connector("backoff_initial_duration")
+        ParameterSpec::new("backoff_initial_duration")
             .description("Initial backoff duration."),
-        ParameterSpec::connector("backoff_max_duration")
+        ParameterSpec::new("backoff_max_duration")
             .description("Maximum backoff duration."),
-        ParameterSpec::connector("backoff_base")
+        ParameterSpec::new("backoff_base")
             .description("The base of the exponential to use"),
-        ParameterSpec::connector("proxy_url")
+        ParameterSpec::new("proxy_url")
             .description("Proxy URL to use when connecting"),
-        ParameterSpec::connector("proxy_ca_certificate")
+        ParameterSpec::new("proxy_ca_certificate")
             .description("CA certificate for the proxy.")
             .secret(),
-        ParameterSpec::connector("proxy_excludes")
+        ParameterSpec::new("proxy_excludes")
             .description("Set list of hosts to exclude from proxy connections"),
-        ParameterSpec::connector("msi_endpoint")
+        ParameterSpec::new("msi_endpoint")
             .description("Sets the endpoint for acquiring managed identity tokens.")
             .secret(),
-        ParameterSpec::connector("federated_token_file")
+        ParameterSpec::new("federated_token_file")
             .description("Sets a file path for acquiring Azure federated identity token in Kubernetes"),
-        ParameterSpec::connector("use_cli")
+        ParameterSpec::new("use_cli")
             .description("Set if the Azure CLI should be used for acquiring access tokens."),
-        ParameterSpec::connector("skip_signature")
+        ParameterSpec::new("skip_signature")
             .description("Skip fetching credentials and skip signing requests. Used for interacting with public containers."),
-        ParameterSpec::connector("disable_tagging")
+        ParameterSpec::new("disable_tagging")
             .description("Ignore any tags provided to put_opts"),
 
     ]);

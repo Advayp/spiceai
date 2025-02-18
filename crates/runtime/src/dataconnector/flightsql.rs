@@ -66,9 +66,9 @@ impl FlightSQLFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::connector("username").secret(),
-    ParameterSpec::connector("password").secret(),
-    ParameterSpec::connector("endpoint"),
+    ParameterSpec::new("username").secret(),
+    ParameterSpec::new("password").secret(),
+    ParameterSpec::new("endpoint"),
 ];
 
 impl DataConnectorFactory for FlightSQLFactory {
