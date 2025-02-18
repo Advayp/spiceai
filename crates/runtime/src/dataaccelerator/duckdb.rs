@@ -156,7 +156,7 @@ impl Default for DuckDBAccelerator {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::accelerator("file"),
+    ParameterSpec::new("file"),
     ParameterSpec::new("file_watcher").unset_prefix(),
 ];
 

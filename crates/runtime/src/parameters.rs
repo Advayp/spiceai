@@ -56,14 +56,14 @@ impl Parameters {
             return None;
         };
 
-        if !prefix_removed && spec.r#type.is_prefixed() {
+        if !prefix_removed && spec.is_prefixed {
             tracing::warn!(
             "Ignoring parameter {key}: must be prefixed with `{full_prefix}` for {component_name}."
         );
             return None;
         }
 
-        if prefix_removed && !spec.r#type.is_prefixed() {
+        if prefix_removed && !spec.is_prefixed {
             tracing::warn!(
                 "Ignoring parameter {key}: must not be prefixed with `{full_prefix}` for {component_name}."
             );
@@ -138,7 +138,7 @@ impl Parameters {
             }
 
             if parameter.required && missing {
-                let param = if parameter.r#type.is_prefixed() {
+                let param = if parameter.is_prefixed {
                     format!("{prefix}_{}", parameter.name)
                 } else {
                     parameter.name.to_string()
@@ -201,7 +201,7 @@ impl Parameters {
     pub fn user_param(&self, name: &str) -> UserParam {
         let spec = self.describe(name);
 
-        if self.prefix.is_empty() || !spec.r#type.is_prefixed() {
+        if self.prefix.is_empty() || !spec.is_prefixed {
             UserParam(spec.name.to_string())
         } else {
             UserParam(format!("{}_{}", self.prefix, spec.name))
