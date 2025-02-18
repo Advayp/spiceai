@@ -65,11 +65,12 @@ const PARAMETERS: &[ParameterSpec] = &[
         .description("The GraphQL query to execute.")
         .required(),
     // Runtime parameters
-    ParameterSpec::runtime("json_pointer")
-        .description("The JSON pointer to the data in the GraphQL response."),
-    ParameterSpec::runtime("unnest_depth").description(
+    ParameterSpec::new("json_pointer")
+        .description("The JSON pointer to the data in the GraphQL response.")
+        .unset_prefix(),
+    ParameterSpec::new("unnest_depth").description(
         "Depth level to automatically unnest objects to. By default, disabled if unspecified or 0.",
-    ),
+    ).unset_prefix(),
 ];
 
 impl DataConnectorFactory for GraphQLFactory {

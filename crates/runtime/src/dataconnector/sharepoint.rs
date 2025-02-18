@@ -124,7 +124,7 @@ const PARAMETERS: &[ParameterSpec] = &[
     ParameterSpec::new("bearer_token").secret(),
     ParameterSpec::new("tenant_id").secret().required(),
     ParameterSpec::new("client_secret").secret(),
-    ParameterSpec::runtime("file_format"),
+    ParameterSpec::new("file_format").unset_prefix(),
 ];
 
 impl DataConnectorFactory for SharepointFactory {

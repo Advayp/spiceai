@@ -67,10 +67,11 @@ const PARAMETERS: &[ParameterSpec] = &[
     ParameterSpec::accelerator("pass").secret(),
     ParameterSpec::accelerator("sslmode"),
     ParameterSpec::accelerator("sslrootcert"),
-    ParameterSpec::runtime("file_watcher"),
-    ParameterSpec::runtime("connection_pool_size")
+    ParameterSpec::new("file_watcher").unset_prefix(),
+    ParameterSpec::new("connection_pool_size")
         .description("The maximum number of connections created in the connection pool")
-        .default("10"),
+        .default("10")
+        .unset_prefix(),
 ];
 
 #[async_trait]

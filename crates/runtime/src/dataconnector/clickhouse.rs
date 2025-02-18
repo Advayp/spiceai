@@ -127,7 +127,7 @@ const PARAMETERS: &[ParameterSpec] = &[
     // clickhouse_secure
     ParameterSpec::new("secure").description("Whether to use a secure connection to the Clickhouse server."),
     // connection_timeout
-    ParameterSpec::runtime("connection_timeout").description("The connection timeout in milliseconds."),
+    ParameterSpec::new("connection_timeout").description("The connection timeout in milliseconds.").unset_prefix(),
 ];
 
 impl DataConnectorFactory for ClickhouseFactory {

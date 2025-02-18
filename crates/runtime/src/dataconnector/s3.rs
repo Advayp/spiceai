@@ -136,10 +136,12 @@ static PARAMETERS: LazyLock<Vec<ParameterSpec>> = LazyLock::new(|| {
             ParameterSpec::new("auth")
                 .description("Configures the authentication method for S3. Supported methods are: public (i.e. no auth), iam_role, key.")
                 .secret(),
-            ParameterSpec::runtime("client_timeout")
-                .description("The timeout setting for S3 client."),
-            ParameterSpec::runtime("allow_http")
-                .description("Allow HTTP protocol for S3 endpoint."),
+            ParameterSpec::new("client_timeout")
+                .description("The timeout setting for S3 client.")
+                .unset_prefix(),
+            ParameterSpec::new("allow_http")
+                .description("Allow HTTP protocol for S3 endpoint.")
+                .unset_prefix(),
         ]);
     all_parameters.extend_from_slice(LISTING_TABLE_PARAMETERS);
     all_parameters

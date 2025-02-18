@@ -317,9 +317,10 @@ const PARAMETERS: &[ParameterSpec] = &[
     ParameterSpec::new("endpoint")
         .description("The Github API endpoint.")
         .default("https://api.github.com"),
-    ParameterSpec::runtime("include")
+    ParameterSpec::new("include")
         .description("Include only files matching the pattern.")
-        .examples(&["*.json", "**/*.yaml;src/**/*.json"]),
+        .examples(&["*.json", "**/*.yaml;src/**/*.json"])
+        .unset_prefix(),
 ];
 
 impl DataConnectorFactory for GithubFactory {

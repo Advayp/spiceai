@@ -168,8 +168,8 @@ impl Default for SqliteAccelerator {
 
 const PARAMETERS: &[ParameterSpec] = &[
     ParameterSpec::accelerator("file"),
-    ParameterSpec::runtime("busy_timeout"),
-    ParameterSpec::runtime("file_watcher"),
+    ParameterSpec::new("busy_timeout").unset_prefix(),
+    ParameterSpec::new("file_watcher").unset_prefix(),
 ];
 
 #[async_trait]

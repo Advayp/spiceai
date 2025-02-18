@@ -71,9 +71,10 @@ const PARAMETERS: &[ParameterSpec] = &[
     ParameterSpec::new("db"),
     ParameterSpec::new("sslmode"),
     ParameterSpec::new("sslrootcert"),
-    ParameterSpec::runtime("connection_pool_size")
+    ParameterSpec::new("connection_pool_size")
         .description("The maximum number of connections created in the connection pool")
-        .default("10"),
+        .default("10")
+        .unset_prefix(),
 ];
 
 impl DataConnectorFactory for PostgresFactory {

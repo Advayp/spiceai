@@ -317,6 +317,7 @@ pub struct ParameterSpec {
     pub examples: &'static [&'static str],
     pub r#type: ParameterType,
     pub deprecation_message: Option<&'static str>,
+    pub is_prefixed: bool,
 }
 
 impl ParameterSpec {
@@ -332,6 +333,7 @@ impl ParameterSpec {
             examples: &[],
             r#type: ParameterType::Connector,
             deprecation_message: None,
+            is_prefixed: true,
         }
     }
 
@@ -347,6 +349,7 @@ impl ParameterSpec {
             examples: &[],
             r#type: ParameterType::Runtime,
             deprecation_message: None,
+            is_prefixed: false,
         }
     }
 
@@ -362,6 +365,7 @@ impl ParameterSpec {
             examples: &[],
             r#type: ParameterType::Accelerator,
             deprecation_message: None,
+            is_prefixed: true,
         }
     }
 
@@ -377,6 +381,7 @@ impl ParameterSpec {
             examples: &[],
             deprecation_message: None,
             r#type: ParameterType::Connector,
+            is_prefixed: true,
         }
     }
 
@@ -419,6 +424,11 @@ impl ParameterSpec {
     #[must_use]
     pub const fn deprecated(mut self, deprecation_message: &'static str) -> Self {
         self.deprecation_message = Some(deprecation_message);
+        self
+    }
+
+    pub const fn unset_prefix(mut self) -> Self {
+        self.is_prefixed = false;
         self
     }
 }
@@ -507,7 +517,7 @@ mod test {
         // key with prefix, parameter does not expect prefix.
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::runtime("endpoint")], // deliberately `runtime` not `connector`.
+                &[ParameterSpec::new("endpoint").unset_prefix()], // deliberately `runtime` not `connector`.
                 "databricks",
                 "databricks_endpoint",
                 "connector databricks"
@@ -518,7 +528,7 @@ mod test {
         // key with prefix, parameter does not expect prefix. Prefix not stripped from key
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::runtime("file_format")],
+                &[ParameterSpec::new("file_format").unset_prefix()],
                 "file",
                 "file_format",
                 "connector file"
@@ -550,7 +560,7 @@ mod test {
 
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::runtime("file_format")],
+                &[ParameterSpec::new("file_format").unset_prefix()],
                 "not_file",
                 "file_format",
                 "accelerator not_file"

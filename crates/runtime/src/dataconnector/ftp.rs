@@ -60,7 +60,9 @@ static PARAMETERS: LazyLock<Vec<ParameterSpec>> = LazyLock::new(|| {
         ParameterSpec::new("user").secret(),
         ParameterSpec::new("pass").secret(),
         ParameterSpec::new("port").description("The port to connect to."),
-        ParameterSpec::runtime("client_timeout").description("The timeout setting for FTP client."),
+        ParameterSpec::new("client_timeout")
+            .description("The timeout setting for FTP client.")
+            .unset_prefix(),
     ]);
     all_parameters.extend_from_slice(LISTING_TABLE_PARAMETERS);
     all_parameters

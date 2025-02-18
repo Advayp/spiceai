@@ -62,10 +62,11 @@ pub(crate) const PARAMETERS: &[ParameterSpec] = &[
         .required()
         .secret()
         .description("The personal access token used to authenticate against the DataBricks API."),
-    ParameterSpec::runtime("mode")
+    ParameterSpec::new("mode")
         .description("The execution mode for querying against Databricks.")
-        .default("spark_connect"),
-    ParameterSpec::runtime("client_timeout")
+        .default("spark_connect")
+        .unset_prefix(),
+    ParameterSpec::new("client_timeout").unset_prefix()
         .description("The timeout setting for object store client."),
     ParameterSpec::new("cluster_id").description("The ID of the compute cluster in Databricks to use for the query. Only valid when mode is spark_connect."),
     ParameterSpec::new("use_ssl").description("Use a TLS connection to connect to the Databricks Spark Connect endpoint.").default("true"),

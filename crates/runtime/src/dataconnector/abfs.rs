@@ -110,9 +110,10 @@ static PARAMETERS: LazyLock<Vec<ParameterSpec>> = LazyLock::new(|| {
         ParameterSpec::new("use_fabric_endpoint")
             .description("Use the Azure Storage fabric endpoint.")
             .default("false"),
-        ParameterSpec::runtime("allow_http")
+        ParameterSpec::new("allow_http")
             .description("Allow insecure HTTP connections.")
-            .default("false"),
+            .default("false")
+            .unset_prefix(),
         ParameterSpec::new("authority_host")
             .description("Sets an alternative authority host."),
         ParameterSpec::new("max_retries")
