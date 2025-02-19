@@ -212,17 +212,6 @@ fn openai(
     let org_id = extract_secret!(params, "openai_org_id");
     let project_id = extract_secret!(params, "openai_project_id");
 
-    match api_key {
-        None => {
-            return Err(LlmError::InvalidParamError {
-                param: "openai_api_key".to_string(),
-                message: "OpenAI API Key is a required field but was not provided. Please specify"
-                    .to_string(),
-            })
-        }
-        _ => {}
-    }
-
     if let Some(temperature_str) = extract_secret!(params, "openai_temperature") {
         match temperature_str.parse::<f64>() {
             Ok(temperature) => {
