@@ -120,11 +120,11 @@ impl SharepointFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::new("client_id").secret().required(),
-    ParameterSpec::new("bearer_token").secret(),
-    ParameterSpec::new("tenant_id").secret().required(),
-    ParameterSpec::new("client_secret").secret(),
-    ParameterSpec::new("file_format").unset_prefix(),
+    ParameterSpec::component("client_id").secret().required(),
+    ParameterSpec::component("bearer_token").secret(),
+    ParameterSpec::component("tenant_id").secret().required(),
+    ParameterSpec::component("client_secret").secret(),
+    ParameterSpec::runtime("file_format"),
 ];
 
 impl DataConnectorFactory for SharepointFactory {

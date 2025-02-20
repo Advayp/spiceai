@@ -46,7 +46,7 @@ impl Default for ArrowAccelerator {
     }
 }
 
-const PARAMETERS: &[ParameterSpec] = &[ParameterSpec::new("file_watcher").unset_prefix()];
+const PARAMETERS: &[ParameterSpec] = &[ParameterSpec::runtime("file_watcher")];
 
 #[async_trait]
 impl DataAccelerator for ArrowAccelerator {

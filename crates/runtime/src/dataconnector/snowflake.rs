@@ -65,14 +65,14 @@ impl SnowflakeFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::new("username").secret(),
-    ParameterSpec::new("password").secret(),
-    ParameterSpec::new("private_key_path").secret(),
-    ParameterSpec::new("private_key_passphrase").secret(),
-    ParameterSpec::new("account").secret(),
-    ParameterSpec::new("warehouse").secret(),
-    ParameterSpec::new("role").secret(),
-    ParameterSpec::new("auth_type"),
+    ParameterSpec::component("username").secret(),
+    ParameterSpec::component("password").secret(),
+    ParameterSpec::component("private_key_path").secret(),
+    ParameterSpec::component("private_key_passphrase").secret(),
+    ParameterSpec::component("account").secret(),
+    ParameterSpec::component("warehouse").secret(),
+    ParameterSpec::component("role").secret(),
+    ParameterSpec::component("auth_type"),
 ];
 
 impl DataConnectorFactory for SnowflakeFactory {

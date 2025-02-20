@@ -159,11 +159,11 @@ impl ODBCFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::new("connection_string").secret(),
-    ParameterSpec::new("max_binary_size"),
-    ParameterSpec::new("max_text_size"),
-    ParameterSpec::new("max_bytes_per_batch"),
-    ParameterSpec::new("max_num_rows_per_batch"),
+    ParameterSpec::component("connection_string").secret(),
+    ParameterSpec::component("max_binary_size"),
+    ParameterSpec::component("max_text_size"),
+    ParameterSpec::component("max_bytes_per_batch"),
+    ParameterSpec::component("max_num_rows_per_batch"),
     ParameterSpec::runtime("sql_dialect"),
 ];
 

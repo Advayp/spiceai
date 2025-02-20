@@ -297,30 +297,29 @@ impl GithubFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::new("token")
+    ParameterSpec::component("token")
         .description("A Github token.")
         .secret(),
-    ParameterSpec::new("client_id")
+    ParameterSpec::component("client_id")
         .description("The Github App Client ID.")
         .secret(),
-    ParameterSpec::new("private_key")
+    ParameterSpec::component("private_key")
         .description("The Github App private key.")
         .secret(),
-    ParameterSpec::new("installation_id")
+    ParameterSpec::component("installation_id")
         .description("The Github App installation ID.")
         .secret(),
-    ParameterSpec::new("query_mode")
+    ParameterSpec::component("query_mode")
         .description(
             "Specify what search mode (REST, GraphQL, Search API) to use when retrieving results.",
         )
         .default("auto"),
-    ParameterSpec::new("endpoint")
+    ParameterSpec::component("endpoint")
         .description("The Github API endpoint.")
         .default("https://api.github.com"),
-    ParameterSpec::new("include")
+    ParameterSpec::runtime("include")
         .description("Include only files matching the pattern.")
-        .examples(&["*.json", "**/*.yaml;src/**/*.json"])
-        .unset_prefix(),
+        .examples(&["*.json", "**/*.yaml;src/**/*.json"]),
 ];
 
 impl DataConnectorFactory for GithubFactory {

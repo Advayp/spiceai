@@ -52,25 +52,24 @@ impl GraphQLFactory {
 
 const PARAMETERS: &[ParameterSpec] = &[
     // Connector parameters
-    ParameterSpec::new("auth_token")
+    ParameterSpec::component("auth_token")
         .description("The bearer token to use in the GraphQL requests.")
         .secret(),
-    ParameterSpec::new("auth_user")
+    ParameterSpec::component("auth_user")
         .description("The username to use for HTTP Basic Auth.")
         .secret(),
-    ParameterSpec::new("auth_pass")
+    ParameterSpec::component("auth_pass")
         .description("The password to use for HTTP Basic Auth.")
         .secret(),
-    ParameterSpec::new("query")
+    ParameterSpec::component("query")
         .description("The GraphQL query to execute.")
         .required(),
     // Runtime parameters
-    ParameterSpec::new("json_pointer")
-        .description("The JSON pointer to the data in the GraphQL response.")
-        .unset_prefix(),
-    ParameterSpec::new("unnest_depth").description(
+    ParameterSpec::runtime("json_pointer")
+        .description("The JSON pointer to the data in the GraphQL response."),
+    ParameterSpec::runtime("unnest_depth").description(
         "Depth level to automatically unnest objects to. By default, disabled if unspecified or 0.",
-    ).unset_prefix(),
+    ),
 ];
 
 impl DataConnectorFactory for GraphQLFactory {

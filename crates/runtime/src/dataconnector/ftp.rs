@@ -57,12 +57,10 @@ impl FTPFactory {
 static PARAMETERS: LazyLock<Vec<ParameterSpec>> = LazyLock::new(|| {
     let mut all_parameters = Vec::new();
     all_parameters.extend_from_slice(&[
-        ParameterSpec::new("user").secret(),
-        ParameterSpec::new("pass").secret(),
-        ParameterSpec::new("port").description("The port to connect to."),
-        ParameterSpec::new("client_timeout")
-            .description("The timeout setting for FTP client.")
-            .unset_prefix(),
+        ParameterSpec::component("user").secret(),
+        ParameterSpec::component("pass").secret(),
+        ParameterSpec::component("port").description("The port to connect to."),
+        ParameterSpec::runtime("client_timeout").description("The timeout setting for FTP client."),
     ]);
     all_parameters.extend_from_slice(LISTING_TABLE_PARAMETERS);
     all_parameters

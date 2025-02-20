@@ -154,48 +154,40 @@ impl DebeziumFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::new("transport")
+    ParameterSpec::component("transport")
         .required()
         .default("kafka")
         .description("The message broker transport to use. The default is kafka."),
-    ParameterSpec::new("message_format")
+    ParameterSpec::component("message_format")
         .required()
         .default("json")
         .description("The message format to use. The default is json."),
-    ParameterSpec::new("kafka_bootstrap_servers")
+    ParameterSpec::runtime("kafka_bootstrap_servers")
         .required()
         .description(
             "A list of host/port pairs for establishing the initial Kafka cluster connection.",
-        )
-        .unset_prefix(),
-     ParameterSpec::new("kafka_security_protocol")
+        ),
+     ParameterSpec::runtime("kafka_security_protocol")
         .default("sasl_ssl")
-        .unset_prefix()
         .description("Security protocol for Kafka connections. Default: 'sasl_ssl'. Options: 'plaintext', 'ssl', 'sasl_plaintext', 'sasl_ssl'."),
-    ParameterSpec::new("kafka_sasl_mechanism")
+    ParameterSpec::runtime("kafka_sasl_mechanism")
         .default("SCRAM-SHA-512")
-        .description("SASL authentication mechanism. Default: 'SCRAM-SHA-512'. Options: 'PLAIN', 'SCRAM-SHA-256', 'SCRAM-SHA-512'.")
-        .unset_prefix(),
-    ParameterSpec::new("kafka_sasl_username")
+        .description("SASL authentication mechanism. Default: 'SCRAM-SHA-512'. Options: 'PLAIN', 'SCRAM-SHA-256', 'SCRAM-SHA-512'."),
+    ParameterSpec::runtime("kafka_sasl_username")
         .secret()
-        .description("SASL username.")
-        .unset_prefix(),
-    ParameterSpec::new("kafka_sasl_password")
+        .description("SASL username."),
+    ParameterSpec::runtime("kafka_sasl_password")
         .secret()
-        .description("SASL password.")
-        .unset_prefix(),
-    ParameterSpec::new("kafka_ssl_ca_location")
+        .description("SASL password."),
+    ParameterSpec::runtime("kafka_ssl_ca_location")
         .secret()
-        .description("Path to the SSL/TLS CA certificate file for server verification.")
-        .unset_prefix(),
-    ParameterSpec::new("kafka_enable_ssl_certificate_verification")
+        .description("Path to the SSL/TLS CA certificate file for server verification."),
+    ParameterSpec::runtime("kafka_enable_ssl_certificate_verification")
         .default("true")
-        .description("Enable SSL/TLS certificate verification. Default: 'true'.")
-        .unset_prefix(),
-    ParameterSpec::new("kafka_ssl_endpoint_identification_algorithm")
+        .description("Enable SSL/TLS certificate verification. Default: 'true'."),
+    ParameterSpec::runtime("kafka_ssl_endpoint_identification_algorithm")
         .default("https")
-        .description("SSL/TLS endpoint identification algorithm. Default: 'https'. Options: 'none', 'https'.")
-        .unset_prefix(),
+        .description("SSL/TLS endpoint identification algorithm. Default: 'https'. Options: 'none', 'https'."),
 ];
 
 impl DataConnectorFactory for DebeziumFactory {

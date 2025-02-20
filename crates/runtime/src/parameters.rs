@@ -440,7 +440,7 @@ mod test {
         // key with prefix, parameter expects prefix.
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::new("endpoint")],
+                &[ParameterSpec::component("endpoint")],
                 "databricks",
                 "databricks_endpoint",
                 "connector databricks"
@@ -451,7 +451,7 @@ mod test {
         // key with wrong prefix, parameter expects prefix.
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::new("endpoint")],
+                &[ParameterSpec::component("endpoint")],
                 "not_databricks",
                 "databricks_endpoint",
                 "connector databricks"
@@ -462,7 +462,7 @@ mod test {
         // key with prefix, parameter does not expect prefix.
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::new("endpoint").unset_prefix()], // deliberately `runtime` not `connector`.
+                &[ParameterSpec::runtime("endpoint")], // deliberately `runtime` not `connector`.
                 "databricks",
                 "databricks_endpoint",
                 "connector databricks"
@@ -473,7 +473,7 @@ mod test {
         // key with prefix, parameter does not expect prefix. Prefix not stripped from key
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::new("file_format").unset_prefix()],
+                &[ParameterSpec::runtime("file_format")],
                 "file",
                 "file_format",
                 "connector file"
@@ -484,7 +484,7 @@ mod test {
         // key with prefix, parameter expects prefix. Prefix not stripped from key
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::new("file_format")],
+                &[ParameterSpec::component("file_format")],
                 "file",
                 "file_format",
                 "connector file"
@@ -495,7 +495,7 @@ mod test {
         // key with prefix, parameter expects prefix. Prefix stripped from key
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::new("format")],
+                &[ParameterSpec::component("format")],
                 "file",
                 "file_format",
                 "connector file"
@@ -505,7 +505,7 @@ mod test {
 
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::new("file_format").unset_prefix()],
+                &[ParameterSpec::runtime("file_format")],
                 "not_file",
                 "file_format",
                 "accelerator not_file"

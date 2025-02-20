@@ -115,9 +115,9 @@ impl DremioFactory {
 }
 
 const PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::new("username").secret(),
-    ParameterSpec::new("password").secret(),
-    ParameterSpec::new("endpoint"),
+    ParameterSpec::component("username").secret(),
+    ParameterSpec::component("password").secret(),
+    ParameterSpec::component("endpoint"),
 ];
 
 impl DataConnectorFactory for DremioFactory {

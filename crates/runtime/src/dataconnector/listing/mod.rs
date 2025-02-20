@@ -24,36 +24,30 @@ pub use connector::ListingTableConnector;
 
 /// All [`super::DataConnectorFactory`] that create [`ListingTableConnector`]s should have at least these parameters returned from the associated [`super::DataConnectorFactory::parameters`].
 pub const LISTING_TABLE_PARAMETERS: &[ParameterSpec] = &[
-    ParameterSpec::new("file_format").unset_prefix(),
-    ParameterSpec::new("file_extension").unset_prefix(),
-    ParameterSpec::new("schema_infer_max_records").unset_prefix()
+    ParameterSpec::runtime("file_format"),
+    ParameterSpec::runtime("file_extension"),
+    ParameterSpec::runtime("schema_infer_max_records")
         .description("Set a limit in terms of records to scan to infer the schema."),
-    ParameterSpec::new("tsv_has_header").unset_prefix()
+    ParameterSpec::runtime("tsv_has_header")
         .description("Set true to indicate that the first line is a header."),
-    ParameterSpec::new("tsv_quote").description("The quote character in a row.").unset_prefix(),
-    ParameterSpec::new("tsv_escape").description("The escape character in a row.").unset_prefix(),
-    ParameterSpec::new("tsv_schema_infer_max_records")
+    ParameterSpec::runtime("tsv_quote").description("The quote character in a row."),
+    ParameterSpec::runtime("tsv_escape").description("The escape character in a row."),
+    ParameterSpec::runtime("tsv_schema_infer_max_records")
         .description("Set a limit in terms of records to scan to infer the schema.")
-        .deprecated("use 'schema_infer_max_records' instead")
-        .unset_prefix(),
-    ParameterSpec::new("csv_has_header")
-        .description("Set true to indicate that the first line is a header.")
-        .unset_prefix(),
-    ParameterSpec::new("csv_quote").description("The quote character in a row.").unset_prefix(),
-    ParameterSpec::new("csv_escape").description("The escape character in a row.").unset_prefix(),
-    ParameterSpec::new("csv_schema_infer_max_records")
+        .deprecated("use 'schema_infer_max_records' instead"),
+    ParameterSpec::runtime("csv_has_header")
+        .description("Set true to indicate that the first line is a header."),
+    ParameterSpec::runtime("csv_quote").description("The quote character in a row."),
+    ParameterSpec::runtime("csv_escape").description("The escape character in a row."),
+    ParameterSpec::runtime("csv_schema_infer_max_records")
         .description("Set a limit in terms of records to scan to infer the schema.")
-        .deprecated("use 'schema_infer_max_records' instead")
-        .unset_prefix(),
-    ParameterSpec::new("csv_delimiter")
-        .description("The character separating values within a row.")
-        .unset_prefix(),
-    ParameterSpec::new("file_compression_type")
-        .description("The type of compression used on the file. Supported types are: GZIP, BZIP2, XZ, ZSTD, UNCOMPRESSED")
-        .unset_prefix(),
-    ParameterSpec::new("hive_partitioning_enabled")
+        .deprecated("use 'schema_infer_max_records' instead"),
+    ParameterSpec::runtime("csv_delimiter")
+        .description("The character separating values within a row."),
+    ParameterSpec::runtime("file_compression_type")
+        .description("The type of compression used on the file. Supported types are: GZIP, BZIP2, XZ, ZSTD, UNCOMPRESSED"),
+    ParameterSpec::runtime("hive_partitioning_enabled")
         .description("Enable partitioning using hive-style partitioning from the folder structure. Defaults to false.")
-        .unset_prefix(),
 ];
 
 pub enum DelimitedFormat {
@@ -101,15 +95,15 @@ mod tests {
     use std::collections::HashMap;
 
     const TEST_PARAMETERS: &[ParameterSpec] = &[
-        ParameterSpec::new("file_extension").unset_prefix(),
-        ParameterSpec::new("file_format").unset_prefix(),
-        ParameterSpec::new("schema_infer_max_records").unset_prefix(),
-        ParameterSpec::new("csv_has_header").unset_prefix(),
-        ParameterSpec::new("csv_quote").unset_prefix(),
-        ParameterSpec::new("csv_escape").unset_prefix(),
-        ParameterSpec::new("csv_schema_infer_max_records").unset_prefix(),
-        ParameterSpec::new("csv_delimiter").unset_prefix(),
-        ParameterSpec::new("file_compression_type").unset_prefix(),
+        ParameterSpec::runtime("file_extension"),
+        ParameterSpec::runtime("file_format"),
+        ParameterSpec::runtime("schema_infer_max_records"),
+        ParameterSpec::runtime("csv_has_header"),
+        ParameterSpec::runtime("csv_quote"),
+        ParameterSpec::runtime("csv_escape"),
+        ParameterSpec::runtime("csv_schema_infer_max_records"),
+        ParameterSpec::runtime("csv_delimiter"),
+        ParameterSpec::runtime("file_compression_type"),
     ];
 
     #[test]
