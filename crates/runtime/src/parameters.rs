@@ -462,7 +462,7 @@ mod test {
         // key with prefix, parameter does not expect prefix.
         assert_eq!(
             Parameters::validate_and_format_key(
-                &[ParameterSpec::runtime("endpoint")], // deliberately `runtime` not `connector`.
+                &[ParameterSpec::runtime("endpoint")], // deliberately `runtime` not `component`.
                 "databricks",
                 "databricks_endpoint",
                 "connector databricks"
