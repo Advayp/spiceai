@@ -56,14 +56,14 @@ impl Parameters {
             return None;
         };
 
-        if !prefix_removed && spec.is_prefixed {
+        if !prefix_removed && spec.r#type.is_prefixed() {
             tracing::warn!(
             "Ignoring parameter {key}: must be prefixed with `{full_prefix}` for {component_name}."
         );
             return None;
         }
 
-        if prefix_removed && !spec.is_prefixed {
+        if prefix_removed && !spec.r#type.is_prefixed() {
             tracing::warn!(
                 "Ignoring parameter {key}: must not be prefixed with `{full_prefix}` for {component_name}."
             );
@@ -138,7 +138,7 @@ impl Parameters {
             }
 
             if parameter.required && missing {
-                let param = if parameter.is_prefixed {
+                let param = if parameter.r#type.is_prefixed() {
                     format!("{prefix}_{}", parameter.name)
                 } else {
                     parameter.name.to_string()
@@ -201,7 +201,7 @@ impl Parameters {
     pub fn user_param(&self, name: &str) -> UserParam {
         let spec = self.describe(name);
 
-        if self.prefix.is_empty() || !spec.is_prefixed {
+        if self.prefix.is_empty() || !spec.r#type.is_prefixed() {
             UserParam(spec.name.to_string())
         } else {
             UserParam(format!("{}_{}", self.prefix, spec.name))
@@ -316,12 +316,12 @@ pub struct ParameterSpec {
     pub help_link: &'static str,
     pub examples: &'static [&'static str],
     pub deprecation_message: Option<&'static str>,
-    pub is_prefixed: bool,
+    pub r#type: ParameterType,
 }
 
 impl ParameterSpec {
     #[must_use]
-    pub const fn new(name: &'static str) -> Self {
+    pub const fn component(name: &'static str) -> Self {
         Self {
             name,
             required: false,
@@ -331,7 +331,22 @@ impl ParameterSpec {
             help_link: "",
             examples: &[],
             deprecation_message: None,
-            is_prefixed: true,
+            r#type: ParameterType::Component,
+        }
+    }
+
+    #[must_use]
+    pub const fn runtime(name: &'static str) -> Self {
+        Self {
+            name,
+            required: false,
+            default: None,
+            secret: false,
+            description: "",
+            help_link: "",
+            examples: &[],
+            deprecation_message: None,
+            r#type: ParameterType::Runtime,
         }
     }
 
@@ -376,11 +391,43 @@ impl ParameterSpec {
         self.deprecation_message = Some(deprecation_message);
         self
     }
+}
 
-    #[must_use]
-    pub const fn unset_prefix(mut self) -> Self {
-        self.is_prefixed = false;
-        self
+pub enum ParameterType {
+    /// A parameter which tells Spice how to configure the underlying component, and is usually passed directly to the underlying component configuration.
+    ///
+    /// These parameters are automatically prefixed with the component's prefix.
+    ///
+    /// # Examples
+    ///
+    /// In Postgres, `host` is a Component parameter and would be auto-prefixed with `pg_`.
+    #[default]
+    Component,
+
+    /// Other parameters which control how the runtime interacts with the component, but does
+    /// not affect the actual component configuration.
+    ///
+    /// These parameters are not prefixed with the component's prefix.
+    ///
+    /// # Examples
+    ///
+    /// In Databricks, the `mode` parameter is used to select which connection to use, and thus is
+    /// not a component parameter.
+    Runtime,
+}
+
+impl Display for ParameterType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Component => write!(f, "Component"),
+            Self::Runtime => write!(f, "Runtime"),
+        }
+    }
+}
+
+impl ParameterType {
+    pub const fn is_prefixed(self) -> bool {
+        matches!(self, Self::Component)
     }
 }
 
