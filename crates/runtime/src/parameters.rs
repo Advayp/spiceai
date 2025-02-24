@@ -393,6 +393,7 @@ impl ParameterSpec {
     }
 }
 
+#[derive(Default, Debug, Clone, Copy, PartialEq)]
 pub enum ParameterType {
     /// A parameter which tells Spice how to configure the underlying component, and is usually passed directly to the underlying component configuration.
     ///
@@ -426,7 +427,7 @@ impl Display for ParameterType {
 }
 
 impl ParameterType {
-    pub const fn is_prefixed(self) -> bool {
+    pub const fn is_prefixed(&self) -> bool {
         matches!(self, Self::Component)
     }
 }
