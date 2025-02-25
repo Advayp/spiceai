@@ -427,7 +427,7 @@ impl Display for ParameterType {
 }
 
 impl ParameterType {
-    pub const fn is_prefixed(&self) -> bool {
+    pub const fn is_prefixed(self) -> bool {
         matches!(self, Self::Component)
     }
 }
